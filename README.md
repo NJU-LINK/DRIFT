@@ -110,7 +110,7 @@ DRIFT/
 
 ## Links
 
-- Project page: [docs/index.html](docs/index.html)
+- Project page: [https://nju-link.github.io/DRIFT/](https://nju-link.github.io/DRIFT/)
 - Usage guide: [docs/USAGE.md](docs/USAGE.md)
 - Data guide: [data/README.md](data/README.md)
 - Code package: [src/drift_open](src/drift_open)
