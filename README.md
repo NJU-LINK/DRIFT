@@ -15,7 +15,6 @@ We release:
   real deep-research trajectories.
 - **DRIFT**, a clean runner with two comparable settings: `bare` full-context
   prediction and the full claim-centric `drift` pipeline.
-- **Project page**, figures, prompts, and reproducibility utilities.
 
 <p align="center">
   <img src="docs/assets/images/mechanism_analysis.png" alt="TELBench mechanism analysis" width="92%">
