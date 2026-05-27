@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DRIFT | Claim-Centric Trajectory Auditing</title>
+    <meta
+      name="description"
+      content="DRIFT localizes harmful error spans in deep-research agent trajectories by auditing claims, support, and dependencies."
+    />
+    <meta property="og:title" content="DRIFT: Claim-Centric Trajectory Auditing" />
+    <meta
+      property="og:description"
+      content="A benchmark and auditing framework for span-level error localization in deep-research agent trajectories."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="assets/images/njulinkv6.jpg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="DRIFT home">
+        <span class="brand-mark">D</span>
+        <span>DRIFT</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#method">Method</a>
+        <a href="#benchmark">TELBench</a>
+        <a href="#mechanism">Analysis</a>
+        <a href="#results">Results</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero section-shell">
+        <div class="hero-copy">
+          <p class="eyebrow">Span-level error localization for deep-research agents</p>
+          <h1>Where Do Deep-Research Agents Go Wrong?</h1>
+          <p class="subtitle">
+            DRIFT audits long agent trajectories by tracking what the agent comes
+            to believe, whether those claims are supported, and where unsupported
+            commitments become harmful error spans.
+          </p>
+
+          <div class="authors" aria-label="Authors">
+            <strong>Jiaming Wang*</strong>, <strong>Ziteng Feng*</strong>,
+            Jiangtao Wu, Ruihao Li, Qianqian Xie, Yuxiang Ren, He Zhu,
+            Xueming Han, Fanyu Meng, Junlan Feng, <strong>Jiaheng Liu</strong>
+          </div>
+          <p class="affiliations">
+            NJU-LINK Team, Nanjing University · JIUTIAN Research · OPPO AI Agent Team
+          </p>
+
+          <div class="actions">
+            <a class="button primary" href="https://github.com/NJU-LINK/DRIFT">Code</a>
+            <a class="button" href="https://huggingface.co/datasets/NJU-LINK/TELBench">Dataset</a>
+            <a class="button" href="#citation">Citation</a>
+          </div>
+        </div>
+
+        <div class="hero-panel" aria-label="DRIFT overview">
+          <div class="trace-card">
+            <span class="trace-label">trajectory</span>
+            <div class="trace-row"><span>s001</span><i></i></div>
+            <div class="trace-row soft"><span>s002</span><i></i></div>
+            <div class="trace-row hot"><span>s003</span><i></i></div>
+            <div class="trace-row"><span>s004</span><i></i></div>
+            <div class="trace-row hot"><span>s011</span><i></i></div>
+          </div>
+          <div class="audit-flow">
+            <div>
+              <b>A</b>
+              <span>Claim Keeper</span>
+            </div>
+            <div>
+              <b>B</b>
+              <span>Support Seeker</span>
+            </div>
+            <div>
+              <b>C</b>
+              <span>Dependency Tracer</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell abstract">
+        <div class="section-kicker">Abstract</div>
+        <p>
+          Deep-research agents solve tasks through long trajectories of search,
+          tool use, evidence inspection, and answer synthesis. Final-answer
+          evaluation shows whether an agent succeeds, but not which parts of the
+          trajectory make the answer unreliable. We study span-level error
+          localization for deep-research agents, build TELBench from 1,000
+          expert-verified trajectories, and propose DRIFT, a claim-centric
+          auditing framework that marks spans where unsupported or conflicting
+          claims affect the answer path.
+        </p>
+      </section>
+
+      <section class="section-shell benchmark" id="benchmark">
+        <div>
+          <div class="section-kicker">Benchmark</div>
+          <h2>TELBench evaluates process-level reliability.</h2>
+          <p>
+            TELBench asks models to identify harmful error spans from ordered
+            semantic spans, not from final answers alone. The benchmark is built
+            from real deep-research agent runs and preserves benign exploration,
+            failed searches, tentative hypotheses, and harmless noise.
+          </p>
+        </div>
+        <div class="stats-grid">
+          <div><strong>2,790</strong><span>agent trajectories collected</span></div>
+          <div><strong>1,000</strong><span>verified TELBench instances</span></div>
+          <div><strong>600 / 400</strong><span>easy and hard split</span></div>
+          <div><strong>3</strong><span>benchmarks: GAIA, XBench, BrowseComp</span></div>
+        </div>
+      </section>
+
+      <section class="section-shell figure-section pale">
+        <figure>
+          <img src="assets/images/telbench_pipeline.png" alt="TELBench data curation pipeline" />
+          <figcaption>Data curation pipeline for trajectory collection, semantic-span segmentation, and expert verification.</figcaption>
+        </figure>
+      </section>
+
+      <section class="section-shell figure-section" id="mechanism">
+        <div class="figure-copy">
+          <div class="section-kicker">Mechanism Analysis</div>
+          <h2>Errors are shaped by workflow stage, fault family, and temporal position.</h2>
+          <p>
+            TELBench includes mechanism labels for analysis only. They reveal
+            recurring failure families, stage-dependent error patterns, and
+            differences across benchmarks, agent frameworks, and model families.
+            These labels are never provided to evaluation models.
+          </p>
+        </div>
+        <figure>
+          <img src="assets/images/mechanism_analysis.png" alt="Mechanism analysis of annotated TELBench trajectories" />
+          <figcaption>Mechanism analysis over annotated trajectories, including fault families, workflow stages, first-error patterns, and the Verified-1K subset.</figcaption>
+        </figure>
+      </section>
+
+      <section class="section-shell split" id="method">
+        <div>
+          <div class="section-kicker">Method</div>
+          <h2>From span scoring to claim auditing.</h2>
+          <p>
+            A failed trajectory is rarely a single bad span. Agents search,
+            compare candidates, revise hypotheses, and later reuse earlier
+            claims as if they were established facts. DRIFT therefore diagnoses
+            errors by auditing claims and their dependencies, rather than asking
+            a model to classify every span independently.
+          </p>
+        </div>
+        <div class="method-cards">
+          <article>
+            <span>A</span>
+            <h3>Claim Keeper</h3>
+            <p>
+              Builds a compact ledger of decision-critical claims, including
+              where each claim appears, where it becomes consequential, and which
+              later spans use it.
+            </p>
+          </article>
+          <article>
+            <span>B</span>
+            <h3>Support Seeker</h3>
+            <p>
+              Checks whether each consequential claim is directly supported,
+              weakly supported, missing support, or contradicted by raw
+              trajectory evidence.
+            </p>
+          </article>
+          <article>
+            <span>C</span>
+            <h3>Dependency Tracer</h3>
+            <p>
+              Locates spans where risky claims become harmful commitments and
+              later spans that reuse, amplify, or finalize the same unsupported
+              claim.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-shell full-figure">
+        <div class="figure-copy">
+          <div class="section-kicker">Architecture</div>
+          <h2>Claim ledger, graph-grep support, and final localization.</h2>
+          <p>
+            DRIFT keeps the input clean: every module receives only the task
+            question and ordered raw span text, with no gold labels, judge
+            results, manual notes, span types, or generated summaries.
+          </p>
+        </div>
+        <figure>
+          <img src="assets/images/drift_overview.png" alt="Overview of the DRIFT claim-centric auditing workflow" />
+          <figcaption>DRIFT turns a long trajectory into a claim-support audit before predicting error span ids.</figcaption>
+        </figure>
+      </section>
+
+      <section class="section-shell results" id="results">
+        <div class="section-kicker">Results</div>
+        <h2>DRIFT improves span-level localization across model families.</h2>
+        <p>
+          On TELBench, DRIFT consistently improves overall macro-F1 over bare
+          full-context prompting. The gains hold across GPT-5.4, DeepSeek-V3.2,
+          Claude-Sonnet-4.6, and Gemini-2.5-Pro, showing that structured
+          claim-centric auditing provides useful signal beyond stronger base
+          models alone.
+        </p>
+        <div class="score-grid" aria-label="Overall macro-F1 results">
+          <article>
+            <span>GPT-5.4</span>
+            <strong>52.48</strong>
+            <small>DRIFT macro-F1, +18.55 over bare</small>
+          </article>
+          <article>
+            <span>DeepSeek-V3.2</span>
+            <strong>50.51</strong>
+            <small>DRIFT macro-F1, +28.05 over bare</small>
+          </article>
+          <article>
+            <span>Claude-Sonnet-4.6</span>
+            <strong>54.91</strong>
+            <small>DRIFT macro-F1, +33.02 over bare</small>
+          </article>
+          <article>
+            <span>Gemini-2.5-Pro</span>
+            <strong>48.41</strong>
+            <small>DRIFT macro-F1, +17.40 over bare</small>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-shell figure-section pale">
+        <figure>
+          <img src="assets/images/overall_macro_f1.png" alt="Overall macro-F1 on TELBench" />
+          <figcaption>Overall macro-F1 on TELBench. DRIFT outperforms bare full-context prompting and generic agentic auditing baselines across model families.</figcaption>
+        </figure>
+      </section>
+
+      <section class="section-shell gallery">
+        <figure>
+          <img src="assets/images/qwen_scale.png" alt="Performance across the Qwen3 family" />
+          <figcaption>Scaling alone is insufficient: larger base models do not monotonically solve trajectory diagnosis.</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/images/span_complexity.png" alt="Sensitivity to span complexity" />
+          <figcaption>As trajectory span complexity increases, DRIFT preserves a stronger localization signal than bare prompting.</figcaption>
+        </figure>
+      </section>
+
+      <section class="section-shell gallery">
+        <figure>
+          <img src="assets/images/f1_growth.png" alt="F1 growth with DRIFT modules" />
+          <figcaption>Module growth trend on representative model families.</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/images/efficiency_tradeoff.png" alt="Efficiency-performance trade-off across frameworks" />
+          <figcaption>Efficiency-performance trade-off across diagnostic frameworks.</figcaption>
+        </figure>
+      </section>
+
+      <section class="section-shell gallery compact-gallery">
+        <figure>
+          <img src="assets/images/ablation_prf.png" alt="Precision, recall, and F1 ablation across four models" />
+          <figcaption>Appendix ablation view for precision, recall, and F1.</figcaption>
+        </figure>
+      </section>
+
+      <section class="section-shell citation" id="citation">
+        <div class="section-kicker">Citation</div>
+        <h2>Cite DRIFT</h2>
+        <pre><code>@misc{wang2026drift,
+  title  = {Where Do Deep-Research Agents Go Wrong? Span-Level Error Localization in Agent Trajectories},
+  author = {Wang, Jiaming and Feng, Ziteng and Wu, Jiangtao and others},
+  year   = {2026},
+  note   = {DRIFT project}
+}</code></pre>
+      </section>
+    </main>
+
+    <footer>
+      <span>DRIFT</span>
+      <span>Claim-centric trajectory auditing for deep-research agents.</span>
+    </footer>
+  </body>
+</html>

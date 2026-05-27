@@ -1,0 +1,13 @@
+.DS_Store
+.pytest_cache/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+runs/
+
+# Local secrets and decrypted benchmark files.
+.env
+data/.telbench_key
+data/TELBench.jsonl
+
