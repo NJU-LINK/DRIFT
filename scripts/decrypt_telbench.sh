@@ -7,6 +7,18 @@ ENC_FILE="$DATA_DIR/TELBench.jsonl.enc"
 OUT_FILE="$DATA_DIR/TELBench.jsonl"
 KEY_FILE="$DATA_DIR/.telbench_key"
 
+if [[ ! -f "$ENC_FILE" ]]; then
+  cat >&2 <<EOF
+Missing $ENC_FILE.
+Download TELBench first:
+  hf download NJU-LINK/TELBench --repo-type dataset --local-dir data \\
+    --include "TELBench.jsonl.enc" \\
+    --include "TELBench.jsonl.enc.sha256" \\
+    --include "TELBench.jsonl.sha256"
+EOF
+  exit 1
+fi
+
 if [[ -z "${TELBENCH_PASSPHRASE:-}" ]]; then
   if [[ -f "$KEY_FILE" ]]; then
     TELBENCH_PASSPHRASE="$(<"$KEY_FILE")"
@@ -30,4 +42,3 @@ if [[ -f "$DATA_DIR/TELBench.jsonl.sha256" ]]; then
 fi
 
 echo "Decrypted TELBench to $OUT_FILE"
-

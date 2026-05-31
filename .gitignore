@@ -10,4 +10,6 @@ runs/
 .env
 data/.telbench_key
 data/TELBench.jsonl
-
+data/TELBench.jsonl.enc
+data/TELBench.jsonl.enc.sha256
+data/TELBench.jsonl.sha256

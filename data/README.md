@@ -1,6 +1,20 @@
 # TELBench Data
 
-This directory contains the encrypted TELBench release file:
+TELBench artifacts are hosted on Hugging Face instead of being committed to the
+GitHub repository. Download the encrypted release into this directory:
+
+```bash
+python -m pip install -U huggingface_hub
+
+hf download NJU-LINK/TELBench \
+  --repo-type dataset \
+  --local-dir data \
+  --include "TELBench.jsonl.enc" \
+  --include "TELBench.jsonl.enc.sha256" \
+  --include "TELBench.jsonl.sha256"
+```
+
+Downloaded files:
 
 - `TELBench.jsonl.enc`: AES-256-CBC encrypted JSONL file.
 - `TELBench.jsonl.enc.sha256`: checksum of the encrypted file.
@@ -47,4 +61,3 @@ Each line is one trajectory-level instance:
 DRIFT sanitizes inputs before prompting. Model calls receive only `question`,
 `id`, and ordered raw span text. Gold labels, annotations, metadata, judge
 results, span types, and manual notes are not passed to the model.
-

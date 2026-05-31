@@ -13,10 +13,17 @@ python -m pip install -e .
 
 ## Prepare TELBench
 
-The encrypted 1,000-instance TELBench JSONL is stored under `data/`:
+The encrypted 1,000-instance TELBench JSONL is hosted on Hugging Face:
 
-```text
-data/TELBench.jsonl.enc
+```bash
+python -m pip install -U huggingface_hub
+
+hf download NJU-LINK/TELBench \
+  --repo-type dataset \
+  --local-dir data \
+  --include "TELBench.jsonl.enc" \
+  --include "TELBench.jsonl.enc.sha256" \
+  --include "TELBench.jsonl.sha256"
 ```
 
 Decrypt it with the release passphrase:
@@ -33,7 +40,8 @@ data/TELBench.jsonl
 ```
 
 The script verifies the decrypted file against `data/TELBench.jsonl.sha256`.
-The decrypted JSONL and local key file are ignored by git.
+The downloaded encrypted artifacts, decrypted JSONL, and local key file are
+ignored by git.
 
 ## Configure API
 
@@ -149,4 +157,3 @@ The public prediction schema is:
   ]
 }
 ```
-

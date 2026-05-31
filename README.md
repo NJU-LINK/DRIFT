@@ -15,6 +15,7 @@ We release:
   real deep-research trajectories.
 - **DRIFT**, a clean runner with two comparable settings: `bare` full-context
   prediction and the full claim-centric `drift` pipeline.
+- **Project page**, figures, prompts, and reproducibility utilities.
 
 <p align="center">
   <img src="docs/assets/images/mechanism_analysis.png" alt="TELBench mechanism analysis" width="92%">
@@ -53,6 +54,14 @@ summaries are stripped before prompting.
 git clone https://github.com/NJU-LINK/DRIFT.git
 cd DRIFT
 python -m pip install -e .
+python -m pip install -U huggingface_hub
+
+hf download NJU-LINK/TELBench \
+  --repo-type dataset \
+  --local-dir data \
+  --include "TELBench.jsonl.enc" \
+  --include "TELBench.jsonl.enc.sha256" \
+  --include "TELBench.jsonl.sha256"
 
 export TELBENCH_PASSPHRASE="..."
 bash scripts/decrypt_telbench.sh
@@ -85,10 +94,7 @@ For the TELBench JSONL schema, see [data/README.md](data/README.md).
 ```text
 DRIFT/
 ├── data/
-│   ├── TELBench.jsonl.enc
-│   ├── TELBench.jsonl.enc.sha256
-│   ├── TELBench.jsonl.sha256
-│   └── README.md
+│   └── README.md              # download TELBench artifacts from Hugging Face
 ├── docs/
 │   ├── index.html
 │   ├── styles.css
@@ -125,4 +131,3 @@ DRIFT/
   note   = {DRIFT project}
 }
 ```
-
