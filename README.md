@@ -2,7 +2,7 @@
 
 > **Where Do Deep-Research Agents Go Wrong? Span-Level Error Localization in Agent Trajectories**
 
-**NJU-LINK Team, Nanjing University · JIUTIAN Research**
+**NJU-LINK Team, Nanjing University · JIUTIAN Research · OPPO AI Agent Team**
 
 DRIFT is a claim-centric auditing framework for diagnosing deep-research agent
 trajectories. Instead of only checking whether the final answer is correct,
@@ -61,9 +61,9 @@ hf download NJU-LINK/TELBench \
   --local-dir data \
   --include "TELBench.jsonl.enc" \
   --include "TELBench.jsonl.enc.sha256" \
-  --include "TELBench.jsonl.sha256"
+  --include "TELBench.jsonl.sha256" \
+  --include "TELBench.passphrase.txt"
 
-export TELBENCH_PASSPHRASE="..."
 bash scripts/decrypt_telbench.sh
 
 cat > .env <<'EOF'
@@ -124,13 +124,10 @@ DRIFT/
 ## Citation
 
 ```bibtex
-@misc{wang2026deepresearchagentswrongspanlevel,
-      title={Where Do Deep-Research Agents Go Wrong? Span-Level Error Localization in Agent Trajectories}, 
-      author={Jiaming Wang and Ziteng Feng and Jiangtao Wu and Ruihao Li and Qianqian Xie and Yuxiang Ren and He Zhu and Xueming Han and Fanyu Meng and Junlan Feng and Jiaheng Liu},
-      year={2026},
-      eprint={2606.02060},
-      archivePrefix={arXiv},
-      primaryClass={cs.AI},
-      url={https://arxiv.org/abs/2606.02060}, 
+@misc{wang2026drift,
+  title  = {Where Do Deep-Research Agents Go Wrong? Span-Level Error Localization in Agent Trajectories},
+  author = {Wang, Jiaming and Feng, Ziteng and Wu, Jiangtao and others},
+  year   = {2026},
+  note   = {DRIFT project}
 }
 ```

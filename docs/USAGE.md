@@ -23,13 +23,13 @@ hf download NJU-LINK/TELBench \
   --local-dir data \
   --include "TELBench.jsonl.enc" \
   --include "TELBench.jsonl.enc.sha256" \
-  --include "TELBench.jsonl.sha256"
+  --include "TELBench.jsonl.sha256" \
+  --include "TELBench.passphrase.txt"
 ```
 
-Decrypt it with the release passphrase:
+Decrypt it:
 
 ```bash
-export TELBENCH_PASSPHRASE="..."
 bash scripts/decrypt_telbench.sh
 ```
 
@@ -40,8 +40,8 @@ data/TELBench.jsonl
 ```
 
 The script verifies the decrypted file against `data/TELBench.jsonl.sha256`.
-The downloaded encrypted artifacts, decrypted JSONL, and local key file are
-ignored by git.
+The downloaded encrypted artifacts, downloaded passphrase file, decrypted JSONL,
+and local key file are ignored by git.
 
 ## Configure API
 

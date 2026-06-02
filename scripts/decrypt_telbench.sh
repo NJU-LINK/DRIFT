@@ -6,6 +6,7 @@ DATA_DIR="$ROOT_DIR/data"
 ENC_FILE="$DATA_DIR/TELBench.jsonl.enc"
 OUT_FILE="$DATA_DIR/TELBench.jsonl"
 KEY_FILE="$DATA_DIR/.telbench_key"
+PUBLIC_KEY_FILE="$DATA_DIR/TELBench.passphrase.txt"
 
 if [[ ! -f "$ENC_FILE" ]]; then
   cat >&2 <<EOF
@@ -23,8 +24,11 @@ if [[ -z "${TELBENCH_PASSPHRASE:-}" ]]; then
   if [[ -f "$KEY_FILE" ]]; then
     TELBENCH_PASSPHRASE="$(<"$KEY_FILE")"
     export TELBENCH_PASSPHRASE
+  elif [[ -f "$PUBLIC_KEY_FILE" ]]; then
+    TELBENCH_PASSPHRASE="$(<"$PUBLIC_KEY_FILE")"
+    export TELBENCH_PASSPHRASE
   else
-    echo "Missing TELBENCH_PASSPHRASE. Set it or create data/.telbench_key." >&2
+    echo "Missing TELBENCH_PASSPHRASE. Set it, create data/.telbench_key, or download data/TELBench.passphrase.txt from Hugging Face." >&2
     exit 1
   fi
 fi

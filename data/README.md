@@ -11,7 +11,8 @@ hf download NJU-LINK/TELBench \
   --local-dir data \
   --include "TELBench.jsonl.enc" \
   --include "TELBench.jsonl.enc.sha256" \
-  --include "TELBench.jsonl.sha256"
+  --include "TELBench.jsonl.sha256" \
+  --include "TELBench.passphrase.txt"
 ```
 
 Downloaded files:
@@ -19,9 +20,9 @@ Downloaded files:
 - `TELBench.jsonl.enc`: AES-256-CBC encrypted JSONL file.
 - `TELBench.jsonl.enc.sha256`: checksum of the encrypted file.
 - `TELBench.jsonl.sha256`: checksum of the decrypted JSONL file.
+- `TELBench.passphrase.txt`: public release passphrase for decryption.
 
-The decrypted file is intentionally ignored by git. To recover it, place the
-data passphrase in `TELBENCH_PASSPHRASE` or in `data/.telbench_key`, then run:
+The decrypted file is intentionally ignored by git. To recover it, run:
 
 ```bash
 bash scripts/decrypt_telbench.sh
