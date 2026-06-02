@@ -4,6 +4,14 @@
 
 **NJU-LINK Team, Nanjing University · JIUTIAN Research**
 
+<p align="center">
+  <a href="https://arxiv.org/abs/2606.02060"><img src="https://img.shields.io/badge/arXiv-2606.02060-b31b1b.svg" alt="arXiv"></a>
+  <a href="https://nju-link.github.io/DRIFT/"><img src="https://img.shields.io/badge/Project-Page-4f7cba.svg" alt="Project Page"></a>
+  <a href="https://huggingface.co/datasets/NJU-LINK/TELBench"><img src="https://img.shields.io/badge/HuggingFace-TELBench-f6c343.svg" alt="TELBench"></a>
+  <a href="https://github.com/NJU-LINK/DRIFT"><img src="https://img.shields.io/badge/GitHub-Code-24292f.svg" alt="GitHub"></a>
+  <a href="docs/USAGE.md"><img src="https://img.shields.io/badge/Docs-Usage-6a8f5f.svg" alt="Usage Docs"></a>
+</p>
+
 DRIFT is a claim-centric auditing framework for diagnosing deep-research agent
 trajectories. Instead of only checking whether the final answer is correct,
 DRIFT localizes the semantic spans where an agent first makes, reuses, or
