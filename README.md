@@ -2,7 +2,7 @@
 
 > **Where Do Deep-Research Agents Go Wrong? Span-Level Error Localization in Agent Trajectories**
 
-**NJU-LINK Team, Nanjing University · JIUTIAN Research · OPPO AI Agent Team**
+**NJU-LINK Team, Nanjing University · JIUTIAN Research**
 
 DRIFT is a claim-centric auditing framework for diagnosing deep-research agent
 trajectories. Instead of only checking whether the final answer is correct,
