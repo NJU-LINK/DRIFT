@@ -132,10 +132,13 @@ DRIFT/
 ## Citation
 
 ```bibtex
-@misc{wang2026drift,
-  title  = {Where Do Deep-Research Agents Go Wrong? Span-Level Error Localization in Agent Trajectories},
-  author = {Wang, Jiaming and Feng, Ziteng and Wu, Jiangtao and others},
-  year   = {2026},
-  note   = {DRIFT project}
+@misc{wang2026deepresearchagentswrongspanlevel,
+      title={Where Do Deep-Research Agents Go Wrong? Span-Level Error Localization in Agent Trajectories}, 
+      author={Jiaming Wang and Ziteng Feng and Jiangtao Wu and Ruihao Li and Qianqian Xie and Yuxiang Ren and He Zhu and Xueming Han and Fanyu Meng and Junlan Feng and Jiaheng Liu},
+      year={2026},
+      eprint={2606.02060},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2606.02060}, 
 }
 ```
